@@ -1,5 +1,6 @@
 package com.project.scrapvendors.Service;
 
+import com.project.scrapvendors.Exception.ScrapvendorNotFoundException;
 import com.project.scrapvendors.Model.ScrapVendor;
 import com.project.scrapvendors.Repository.ScrapVendorRepository;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class ScrapVendorServiceImpl implements ScrapVendorService{
 
     @Override
     public ScrapVendor getScrapVendorById(String scrapVendorId) {
-        return scrapVendorRepository.findById(scrapVendorId).get();
+        return scrapVendorRepository.findById(scrapVendorId).orElseThrow(()-> new ScrapvendorNotFoundException("Searching scrapvendor is not exist"));
 
     }
 
