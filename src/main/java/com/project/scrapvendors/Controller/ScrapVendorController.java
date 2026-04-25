@@ -2,7 +2,10 @@ package com.project.scrapvendors.Controller;
 
 
 import com.project.scrapvendors.Model.ScrapVendor;
+import com.project.scrapvendors.Response.ResponseHandler;
 import com.project.scrapvendors.Service.ScrapVendorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +21,11 @@ public class ScrapVendorController
     }
 
     @GetMapping("{vendorId}")
-    public ScrapVendor getScrapVendorDetails(@PathVariable("vendorId") String vendorId){
-        return scrapVendorService.getScrapVendorById(vendorId);
+    public ResponseEntity<Object> getScrapVendorDetails(@PathVariable("vendorId") String vendorId){
+
+        return ResponseHandler.responseBuilder("Requested Vendor Details are given here", HttpStatus.OK,
+                scrapVendorService.getScrapVendorById(vendorId));
+
     }
 
     @GetMapping()
@@ -32,7 +38,8 @@ public class ScrapVendorController
     @PostMapping()
     public String createScrapVendorDetails(@RequestBody ScrapVendor scrapVendor)
     {
-        scrapVendorService.createScrapVendor(scrapVendor);
+        scrapVendorService.
+                createScrapVendor(scrapVendor);
         return "Scrap vendor created successfully";
     }
 
